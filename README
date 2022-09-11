@@ -20,6 +20,11 @@ YT Video > https://www.youtube.com/watch?v=lllB-78pkDQ&t=711s
 NOTE: Script execution on your Windows has to be enabled.
 If you get an error message try: "set-executionpolicy remotesigned"
 > Once you started the virtual environment, type: "pip install -r requirements"
+> Now navigate to the API folder and type: "python" and then follow the below order
+>>from api import db
+>>db.create_all()
+>>exit()
+
 
 ## Inserting Data <-------------------------------------------------------
 newEmployee = Employee(firstname=”Rob”, lastname=”Hedgpeth”)
