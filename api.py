@@ -5,12 +5,16 @@ import mariadb
 import json
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
+import uuid
 
 # Define the MariaDB engine using MariaDB Connector/Python
 engine = sqlalchemy.create_engine("mariadb+mariadbconnector://test:12345@localhost:3306/librarycatalog")
 db = sqlalchemy.orm.sessionmaker()
 db.configure(bind=engine)
 db = db()
+
+if __name__=='__main__':
+    app.run(debug=True)
 
 app = Flask(__name__)
 Base = declarative_base()
@@ -33,18 +37,25 @@ def test():
         'test': 'test1'
             }
 
-# Provide a search function that returns all current DB entries
+# Provide a search function based on firstname parameters
+# Example: http://localhost:5000/search?firstname=Diana
 @app.route('/search', methods=['GET'])
 def getEmployees():
-    allEmployees = db.query(Employee).all()
-    output = []
-    for employee in allEmployees:
-        currEmp = {}
-        currEmp['firstname']= employee.firstname
-        currEmp['lastname']= employee.lastname
-        currEmp['id']= employee.id
-        output.append(currEmp)
-    return jsonify(output)
+    if request.args:
+        firstnameValue = request.args.get("firstname")
+        foundEmployees = db.query(Employee).filter_by(firstname=firstnameValue)
+        output = []
+        for employee in foundEmployees:
+            currEmp = {}
+            currEmp['First name']= employee.firstname
+            currEmp['Last name']= employee.lastname
+            currEmp['User ID']= employee.id
+            output.append(currEmp)
+        return jsonify(output)
+    else:
+        return {"message:" "Please provide a first name"}, 403
+
+
 
 # API will reply with the provided parameters
 @app.route('/param', methods=['GET'])
@@ -64,8 +75,3 @@ def createEmployee():
     return {
     "Status": "Created!"
     }
-
-
-
-if __name__=='__main__':
-    app.run(debug=True)

@@ -4,6 +4,7 @@
 ## Links:
 MariaDB Setup > https://mariadb.com/resources/blog/using-sqlalchemy-with-mariadb-connector-python-part-1/
 YT Video > https://www.youtube.com/watch?v=lllB-78pkDQ&t=711s
+SQL Alchemy Queries > https://docs.sqlalchemy.org/en/14/orm/query.html
 
 1. Setup
 > For this example we will use XAMPP on Windows or LAMPP for Linux
