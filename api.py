@@ -46,16 +46,26 @@ def getEmployees():
         output.append(currEmp)
     return jsonify(output)
 
+# API will reply with the provided parameters
+@app.route('/param', methods=['GET'])
+def search():
+    args = request.args
+    return jsonify(args)
+
 # Provide an interface to add new employees
 @app.route('/create', methods=['POST'])
 def createEmployee():
+    db.rollback()
     employeeData = request.get_json()
     employee = Employee(id=employeeData["id"], firstname=employeeData['firstname'], lastname=employeeData['lastname'])
     db.add(employee)
     db.commit()
+
     return {
     "Status": "Created!"
     }
+
+
 
 if __name__=='__main__':
     app.run(debug=True)
