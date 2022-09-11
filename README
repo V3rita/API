@@ -1,0 +1,30 @@
+#============================================================================#
+#     DB Command examples
+##############################################################################
+## Links:
+MariaDB Setup > https://mariadb.com/resources/blog/using-sqlalchemy-with-mariadb-connector-python-part-1/
+YT Video > https://www.youtube.com/watch?v=lllB-78pkDQ&t=711s
+
+1. Setup
+> For this example i have used XAMPP on Windows
+> Install XAMPP and start the Apache and SQL Server
+
+## Inserting Data <-------------------------------------------------------
+newEmployee = Employee(firstname=”Rob”, lastname=”Hedgpeth”)
+db.add(newEmployee)
+db.commit()
+
+## Selecting Data <-------------------------------------------------------
+employees = db.query(Employee).all()
+employee = db.query(Employee).get(1)
+employee = db.query(Employee).filter_on(firstname=”Rob”)
+
+
+## Updating Data <-------------------------------------------------------
+employee = db.query(Employee).get(1)
+employee.firstname = “Robert”
+db.commit()
+
+## Deleting Data <-------------------------------------------------------
+db.query(Employee).filter(Employee.id == id).delete()
+db.commit() 
